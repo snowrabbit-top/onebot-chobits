@@ -32,7 +32,7 @@ class ButtonRender:
         self.style = style
 
 """
-permisson
+permission
 按钮权限
 """
 

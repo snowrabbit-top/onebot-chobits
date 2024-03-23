@@ -34,13 +34,22 @@ develop = [
     ],
     [
         {
-            'name': 'Lagrange.Core',
-            'visited_label': 'Lagrange.Core',
+            'name': '最新提交',
+            'visited_label': '最新提交',
             'type': 2,
-            'data': 'Lagrange.Core',
+            'data': '最新提交',
             'enter': True,
         },
     ],
+    # [
+    #     {
+    #         'name': 'Lagrange.Core',
+    #         'visited_label': 'Lagrange.Core',
+    #         'type': 2,
+    #         'data': 'Lagrange.Core',
+    #         'enter': True,
+    #     },
+    # ],
 ]
 """普通功能"""
 ordinary = [

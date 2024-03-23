@@ -107,7 +107,23 @@ async def handle_poisonous():
     async with httpx.AsyncClient() as client:
         message = await client.get('https://api.wer.plus/api/djt', timeout=None)
         if message.status_code == 200:
-            await image.finish(message.json()['data']['comment'])
+            await poisonous.finish(message.json()['data']['comment'])
+
+# 获取最新提交
+git_last_commit = on_command('最新提交', rule=rule)
+
+@git_last_commit.handle()
+async def handle_resid(matcher: Matcher, args: Message = CommandArg()):
+    if args.extract_plain_text():
+        matcher.set_arg("owner_ref", args)
+
+@git_last_commit.got("owner_ref", prompt="请输入 帐户所有者/仓库名")
+async def got_resid(event: Event, bot: Bot, owner_ref: str = ArgPlainText()):
+    # 创建一个异步client
+    async with httpx.AsyncClient() as client:
+        message = await client.get(f'https://api.github.com/repos/{owner_ref}/commits', timeout=None)
+        if message.status_code == 200:
+            await poisonous.finish(message.json()[0]['sha'])
 
 # 测试resid
 test_resid = on_command("测试resid", rule=rule)
