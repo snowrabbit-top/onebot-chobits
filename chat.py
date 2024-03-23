@@ -5,7 +5,7 @@ import json
 from .handle_markdown import gpt as handle_markdown_gpt
 
 # 与聊天机器人进行对话
-async def chat(bot, message, qq):
+async def chat(bot, message, qq, nickname):
     url = "http://127.0.0.1:8000/chat/completions"
     data = {
         "messages":
@@ -45,5 +45,5 @@ async def chat(bot, message, qq):
         response = await client.post(url, headers=headers, data=json.dumps(data), timeout=None)
         if response.status_code == 200:
             gpt = response.json()['choices'][0]['message']['content']
-            markdown = await handle_markdown_gpt(bot, gpt, message, qq)
+            markdown = await handle_markdown_gpt(bot, gpt, message, qq, nickname)
             return markdown
