@@ -1,11 +1,12 @@
 import json
 import uuid
-from awesome_bot.plugins.chobits.white_list_qq import white_list_qq
+from plugins.chobits.white_list_qq import white_list_qq
 
 """
 render_data
 按钮渲染
 """
+
 
 class ButtonRender:
     """按钮文本"""
@@ -31,10 +32,12 @@ class ButtonRender:
         self.visited_label = visited_label
         self.style = style
 
+
 """
 permission
 按钮权限
 """
+
 
 class ButtonPermission:
     """
@@ -64,10 +67,12 @@ class ButtonPermission:
         self.type = 0
         self.specify_user_ids = white_list_qq
 
+
 """
 action
 按钮动作
 """
+
 
 class ButtonAction:
     """
@@ -75,6 +80,9 @@ class ButtonAction:
     设置 0 跳转按钮：http 或 小程序 客户端识别 scheme
         [/回车指令](mqqapi://aio/inlinecmd?command={urlencode(/回车指令)}&reply=false&enter=true)
         [/参数指令](mqqapi://aio/inlinecmd?command={urlencode(/参数指令（带引用）)&reply=true&enter=false)
+        [@雪兔1](mqqapi://im/chat?chat_type=wpa&uin=3218366812&version=1&src_type=web&web_src=qq.com)
+        [@雪兔2](mqq://im/chat?chat_type=wpa&version=1&src_type=web&uin=3218366812)
+        [打开相机](mqqapi://videostory/takevideo?src_type=internal&version=1&from=mainCamera&uin=&appid=406&widgetid=&shareto=1)
     设置 1 回调按钮：回调后台接口, data 传给后台
     设置 2 指令按钮：自动在输入框插入 @bot data
     """
@@ -120,7 +128,9 @@ class ButtonAction:
         self.at_bot_show_channel_list = at_bot_show_channel_list
         self.unsupport_tips = unsupport_tips
 
+
 """按钮"""
+
 
 class Button:
     """按钮 id"""
@@ -193,7 +203,9 @@ class Button:
             button_group.append(button_row)
         return button_group
 
+
 """封装JSON序列化对象"""
+
 
 class ButtonEncoder(json.JSONEncoder):
 

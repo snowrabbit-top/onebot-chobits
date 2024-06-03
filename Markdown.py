@@ -2,6 +2,7 @@ import json
 
 """Markdown"""
 
+
 class Markdown:
     """Markdown 内容"""
     messages: str
@@ -33,6 +34,13 @@ class Markdown:
                     "name": "匿名用户",
                     "uin": "10000000",
                     "content": [
+                        {
+                            "type": "at",
+                            "data": {
+                                "qq": '2944307407',
+                                "name": '机器人@了阿离'
+                            }
+                        },
                         {
                             "type": "markdown",
                             "data": {

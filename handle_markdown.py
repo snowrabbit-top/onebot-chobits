@@ -1,17 +1,19 @@
-from awesome_bot.plugins.chobits import Button
-from awesome_bot.plugins.chobits import button_list
-from awesome_bot.plugins.chobits import Markdown
+from plugins.chobits import Button
+from plugins.chobits import button_list
+from plugins.chobits import Markdown
 
 # 开发功能
 develop = Button.Button.handle(button_list.develop)
 # 普通功能
 ordinary = Button.Button.handle(button_list.ordinary)
 
+
 # 获取 markdown 文本
 async def get_markdown_message(markdown, keyboard=None):
     # 默认 Markdown
     messages = Markdown.Markdown(markdown, keyboard).body
     return messages
+
 
 # 获取发送 markdown 信息
 async def get_send_markdown_message(bot, markdown, keyword=None):
@@ -25,15 +27,19 @@ async def get_send_markdown_message(bot, markdown, keyword=None):
     }
     return markdown
 
+
 # 功能
 async def menu(bot):
     markdown = ""
+    markdown += "[🔗@3218366812](mqqapi://card/show_pslcard?src_type=internal&version=1&uin=3218366812&crad_type=friend&source=qrcode)"
+    markdown += "\r\n"
     markdown += "# **普通功能如下:** "
     markdown += "\r\n"
     keyword = ordinary
     # 构造发送 markdown 信息
     markdown = await get_send_markdown_message(bot, markdown, keyword)
     return markdown
+
 
 # 功能
 async def develop_menu(bot):
@@ -44,6 +50,7 @@ async def develop_menu(bot):
     # 构造发送 markdown 信息
     markdown = await get_send_markdown_message(bot, markdown, keyword)
     return markdown
+
 
 # gpt
 async def gpt(bot, gpt, message, qq, nickname):
@@ -59,6 +66,7 @@ async def gpt(bot, gpt, message, qq, nickname):
     # 构造发送 markdown 信息
     markdown = await get_send_markdown_message(bot, markdown)
     return markdown
+
 
 # 偷流量大户
 async def glutton(bot, qq):
