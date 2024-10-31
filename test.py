@@ -229,3 +229,104 @@ import random
 # -*- coding: UTF-8 -*-
 import sys
 import re
+
+
+
+
+# from asyncio import create_task as ct
+# from time import time
+# from typing import Dict
+#
+# from loguru import logger
+# from nonebot import on_message
+# from nonebot.adapters.onebot.v11 import Bot, GroupMessageEvent, Message
+# from nonebot.plugin import PluginMetadata
+#
+# from core_plugins.core.global_var import bd, gv
+# from core_plugins.core.utils import handle_exception, send_private_msg
+#
+# from .config import pc, var
+#
+# __plugin_meta__ = PluginMetadata(
+#     name="防刷屏插件",
+#     description="超过限制频率和重复发言次数就禁言",
+#     usage=f"无",
+# )
+#
+#
+# class Info:
+#     last_sender: int = 0
+#     last_content: str = ""
+#     # last_send_time: float = 0
+#     repeat_times: int = 0
+#
+#
+# # 群号 ： 类
+# cache: Dict[int, Info] = dict()
+#
+#
+# def check_bot(event: GroupMessageEvent, bot: Bot):
+#     # return event.group_id in pc.no_repeat_group_list and bot == bd.admin_bot
+#     return bot == bd.admin_bot and event.group_id in bd.relate_miao_groups
+#
+#
+# np_matcher = on_message(rule=check_bot)
+#
+#
+# @np_matcher.handle()
+# @handle_exception("禁止刷屏")
+# async def _(event: GroupMessageEvent, bot: Bot):
+#     group_id = event.group_id
+#     user_id = event.user_id
+#
+#     if group_id not in cache:
+#         cache[group_id] = Info()
+#
+#     _message_text = ""
+#
+#     for seg in event.message:
+#         if seg.type == "at":
+#             _message_text += str(seg.data.get("qq"))
+#
+#         if seg.type == "text":
+#             _message_text += str(seg.data.get("text"))
+#
+#         if seg.type == "image":
+#             _message_text += str(seg.data.get("file_unique"))
+#
+#     if not _message_text:
+#         return
+#
+#     # 同一个人
+#     if user_id == cache[group_id].last_sender:
+#         # # 不看内容，先检测有没有高频发消息
+#         # if time() - cache[group_id].last_send_time < pc.no_repeat_delay:
+#         #     cache[group_id].repeat_times += 1
+#
+#         # 看有没有单人复读
+#         if _message_text == cache[group_id].last_content:
+#             cache[group_id].repeat_times += 1
+#
+#         # cache[group_id].last_send_time = time()
+#
+#         # 判断触发次数
+#         if cache[group_id].repeat_times >= pc.no_repeat_times:
+#             # 撤回
+#             # await bot.delete_msg(message_id=event.message_id)
+#             await bot.set_group_ban(
+#                 group_id=group_id, user_id=user_id, duration=pc.no_repeat_ban_time
+#             )
+#             await ct(
+#                 send_private_msg(
+#                     user_id=gv.admin_num,
+#                     message=f"{user_id}在群{group_id}触发复读限制已禁言",
+#                 )
+#             )
+#             await np_matcher.finish(
+#                 "请不要高频发言，如误触发请私聊群主", at_sender=True
+#             )
+#
+#     else:
+#         cache[group_id].repeat_times = 0
+#         cache[group_id].last_sender = user_id
+#         cache[group_id].last_content = _message_text
